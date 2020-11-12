@@ -15,9 +15,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       #handle success
+      reset_session
+      log_in @user
+flash[:success] = 'Welcome to Upgrade Season!'
       redirect_to @user
       #redirect_to user_url(@user) => Alternative code
-      flash[:success] = 'Welcome to Upgrade Season!'
     else
       render 'new'
     end
