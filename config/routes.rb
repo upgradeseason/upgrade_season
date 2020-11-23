@@ -1,3 +1,5 @@
+#Define URLs and where the go to
+
 Rails.application.routes.draw do
   root 'static_pages#home'
 

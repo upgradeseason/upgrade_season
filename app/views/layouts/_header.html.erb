@@ -30,12 +30,12 @@
               <li class="divider"></li>
               <li>
                 <%= link_to "Log out", logout_path, method: :delete %><%# Logout link passes a hash argument %>
-                                           <%# indicating that it should submit with an HTTP DELETE request. %>
+                                           <%# indicating that it should also submit an HTTP DELETE request. %>
               </li>
             </ul>
           </li>
         <% else %>
-        <li><%= link_to "Log in", '#' %></li>
+        <li><%= link_to "Log in", login_path %></li>
       <% end %>
     </ul>
       </nav>

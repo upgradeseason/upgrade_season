@@ -25,7 +25,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     post login_path, params: { session: { email:    @user.email,
                                           password: 'password' } }
     assert is_logged_in?
-assert_redirected_to @user #check right redirect target
+    assert_redirected_to @user #check right redirect target
     follow_redirect!
     assert_template 'users/show'
     assert_select "a[href=?]", login_path, count: 0 #verify login link disappears by verify 0 login paths appear
