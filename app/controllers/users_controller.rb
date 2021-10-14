@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   def show
     #Params used to retreive user ID, same as #User.find(1)
     @user = User.find(params[:id])
-    #debugger
+    #debugger #remove comment to enable
   end
 
   #New action to Users controller

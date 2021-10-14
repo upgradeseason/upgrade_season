@@ -5,6 +5,10 @@
       <h1>
         <%= gravatar_for @user %>
         <%= @user.name %>
+        <%= @user.created_at %>
+        <%= @user.updated_at %>
+
+        <%= Time.now %>
       <h1>
     </section>
   </aside>
