@@ -22,11 +22,11 @@ class UsersController < ApplicationController
       redirect_to @user
       #redirect_to user_url(@user) => Alternative code
     else
-      render 'new'
+      render 'new' #Renders new template
     end
   end
 
-  private
+  private #Private is only used internally, here by users controller and exposed to external users via the web
 
     def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)

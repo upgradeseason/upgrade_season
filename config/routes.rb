@@ -1,4 +1,4 @@
-#Define URLs and where the go to
+#Define URLs and where they go to
 
 Rails.application.routes.draw do
   #Mapping establishes that root URL will be static pgs controller, home action.
