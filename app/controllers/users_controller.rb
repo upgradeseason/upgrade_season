@@ -18,7 +18,7 @@ class UsersController < ApplicationController
       #handle success
       reset_session
       log_in @user
-flash[:success] = 'Welcome to Upgrade Season!'
+      flash[:success] = 'Welcome to Upgrade Season!'
       redirect_to @user
       #redirect_to user_url(@user) => Alternative code
     else

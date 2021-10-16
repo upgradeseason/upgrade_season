@@ -11,6 +11,7 @@
 
       <%= yield %>
       <%= render 'layouts/footer' %>
+      <% #Add debugger to homepage for local only %>
       <%= debug(params) if Rails.env.development? %>
     </div>
   </body>

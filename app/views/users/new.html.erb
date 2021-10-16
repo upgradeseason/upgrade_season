@@ -4,7 +4,7 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%# Call to form_with. The #do indicates a block (and with 1 variable, f for form) %>
+    <%# Call to form_with, with f as variable.) %>
     <%= form_with(model: @user, local: true) do |f| %><%#The ACTION of the form is POST to URL /users.%>
       <%= render 'shared/error_messages' %>
       <%# ^^^ Renders a partial with a dedicated shared partial directory for views across multiple controllers. %>
