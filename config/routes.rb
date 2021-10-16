@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   #get 'sessions/new' #only uses named routes(GET and POST handled with #login route, DELETE with #logout route.
   #get 'users/new'
+  #Note that the Signup page is routed to the NEW action in users controller
 
   get    '/help',    to: 'static_pages#help'
   get    '/about',   to: 'static_pages#about'
