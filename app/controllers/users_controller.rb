@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   #New action to Users controller
   def new
     @user = User.new
+    #debugger
   end
 
   def create
