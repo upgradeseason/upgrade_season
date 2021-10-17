@@ -18,17 +18,19 @@ class UsersController < ApplicationController
       #handle success
       reset_session
       log_in @user
-      flash[:success] = 'Welcome to Upgrade Season!'
+      flash[:success] = 'Welcome to Upgrade Season!' #hash-like object, value is 'Welc..'
+      #flash tells Rails to only persist for 1 request, actually uses cookie.
       redirect_to @user
-      #redirect_to user_url(@user) => Alternative code
+      #redirect_to user's profile page, eg users/1
     else
       render 'new' #Renders new template
     end
   end
 
-  private #Private is only used internally, here by users controller and exposed to external users via the web
+  private #Private is only used internally, here by the users_controller, and not exposed to external users via web
 
     def user_params
+    #Strong parameters
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 end
