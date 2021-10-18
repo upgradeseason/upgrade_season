@@ -42,6 +42,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_template 'users/show' #Means routes, show action, and show.html.erb work
     assert is_logged_in?
-    assert_not flash.empty? #can delete this line? I think not
+    assert_not flash.empty?
   end
 end
