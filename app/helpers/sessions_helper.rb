@@ -20,7 +20,7 @@ module SessionsHelper
 
   #Returns true if (current user in session is NOT nil, aka if user is logged in, false otherwise.
   def logged_in? #Helper method is boolean so => logged_in? (with a question mark)
-    !@current_user.nil? #ivars are nil if not been defined
+    !current_user.nil? #ivars are nil if not been defined
   end
 
   def log_out
