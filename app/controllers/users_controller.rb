@@ -15,6 +15,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      #We needed the user on the form, so we needed an instance variable
       #handle success
       reset_session
       log_in @user
