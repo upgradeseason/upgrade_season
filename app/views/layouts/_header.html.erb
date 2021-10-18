@@ -6,9 +6,26 @@
         <li><%= link_to "Home",   root_path %></li>
         <li><%= link_to "Help",   help_path %></li>
         <% if logged_in? %>
-        
+          <li><%= link_to "Users", "#" %></li>
+          <li class="dropdown"> <%# Specific to Bootstrap %>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Account <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Profile", current_user %></li> 
+              <%# Rails autoconverts this to user path %>
+              <li><%= link_to "Settings", '#' %></li>
+              <li class="divider"></li>
+              <li>
+                <%= link_to "Log out", logout_path, method: :delete %>
+                <%# We have named route(logout_path), we arrange for Rails to issue right kind of request (delete) %>
+                <%# Logout link passes a hash argument %>
+                <%# indicating that it should also submit an HTTP DELETE request. %>
+
         <% else %>
-        <li><%= link_to "Log in", "#" %></li>
+        <li><%= link_to "Log in", "login_path" %></li>
+        <%# We actually have a ^login_path, so we dont need a "#" stub. %>
+
         <% end %>
       </ul>
     </nav>
