@@ -6,12 +6,12 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   # end
 
   test "invalid signup information" do
-    get signup_path #We have a named path, we visit it. 
+    get signup_path #We have a named path, we visit it.
     #Simulate going to signup page to catch bad mistakes/major regressions, aka verify renders w/o error.
-    #However we do issue POST request to users_path(the way submit button does) so signup_path isn't necessary.
+    #We issue POST request to users_path(the way submit button does) so signup_path isn't necessary.
     assert_no_difference 'User.count' do #User.count is a string argument to #assert_no_difference method. 
       #The count method is avail on every ActiveRecord class.
-      post users_path, params: { user: { name:  "",
+      post users_path, params: { user: { name:  "foobar",
       #POST request to users_path
       #params[:user] hash is expected by the User.new create action.
       #We're simulating form submission here.
