@@ -11,7 +11,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               Account <b class="caret"></b>
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu"> <%# Bootstraps ability to make dropdowns %>
               <li><%= link_to "Profile", current_user %></li> 
               <%# Rails autoconverts this to user path %>
               <li><%= link_to "Settings", '#' %></li>
@@ -20,7 +20,7 @@
                 <%= link_to "Log out", logout_path, method: :delete %>
                 <%# We have named route(logout_path), we arrange for Rails to issue right kind of request (delete) %>
                 <%# Logout link passes a hash argument %>
-                <%# indicating that it should also submit an HTTP DELETE request. %>
+                <%# indicating that it should submit an HTTP DELETE request. %>
 
         <% else %>
         <li><%= link_to "Log in", login_path %></li>
