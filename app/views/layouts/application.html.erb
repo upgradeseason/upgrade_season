@@ -7,8 +7,7 @@
       <% #Just before the main content %>
       <% #Iterate through, k, and v is message itself %>
       <% flash.each do |message_type, message| %>
-        <div class="alert alert-<%= message_type %>"><%= message %></div>
-        <% #<%= content_tag(:div, message, class: "alert alert-#{message_type}")%>
+        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
       <% end %>
 
       <%= yield %>

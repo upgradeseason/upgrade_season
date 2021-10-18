@@ -11,7 +11,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     #However we do issue POST request to users_path(the way submit button does) so signup_path isn't necessary.
     assert_no_difference 'User.count' do #User.count is a string argument to #assert_no_difference method. 
       #The count method is avail on every ActiveRecord class.
-      post users_path, params: { user: { name:  "", 
+      post users_path, params: { user: { name:  "",
       #POST request to users_path
       #params[:user] hash is expected by the User.new create action.
       #We're simulating form submission here.
@@ -33,14 +33,14 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   #Test successful submission that actually creates a new user
   test "valid signup information" do
     get signup_path
-    assert_difference 'User.count', 1 do
+    assert_difference 'User.count', 1 do #1 specifies size of difference
       post users_path, params: { user: { name: "Example User",
                                          email: "user@example.com",
                                          password:              "password",
                                          password_confirmation: "password" } }
     end
     follow_redirect!
-    assert_template 'users/show'
+    assert_template 'users/show' #Means routes, show action, and show.html.erb work
     assert is_logged_in?
     assert_not flash.empty? #can delete this line? I think not
   end
