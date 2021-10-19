@@ -13,9 +13,9 @@ Rails.application.routes.draw do
   get    '/signup',  to: 'users#new'
   #GET (sessions#new) is handled with login route/path/URL to sessions controller
   #These are the 3 routes for the sessions form.
-  get    '/login',   to: 'sessions#new' #The login page
+  get    '/login',   to: 'sessions#new' #RESTful conventios uses NEW for login page
   #POST request is handled by/routed to (sessions controller) create action
-  post   '/login',   to: 'sessions#create'
+  post   '/login',   to: 'sessions#create' #And CREATE to complete the login
   delete '/logout',  to: 'sessions#destroy' #Destroy an object/session
   resources :users #special resources method used to obtain full suite of RESTful routes automatically
 end

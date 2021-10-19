@@ -24,7 +24,8 @@ module SessionsHelper
   end
 
   def log_out
-    reset_session
+    reset_session #prevent session fixation/attack vector, ensure all session variables are reset upon logout
     @current_user = nil
+    #Put log_out method to use in sessions_controller destory action.
   end
 end

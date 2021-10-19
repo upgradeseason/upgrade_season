@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     #Create new session by finding user, if this is true, we log user in, redirect to show/user profile page
     user = User.find_by(email: params[:session][:email].downcase)
     if user&.authenticate(params[:session][:password])
-      reset_session #prevent session fixation attack vector
+      reset_session #prevent session fixation attack vector, ensure all session variables are reset upon logout
       log_in user #log_in method used, related to sessions, put in module(helper)
       #log_in (sessions_helper.rb) is a layer of abstraction, bc this could get more complicated over time, and we'll
       #use this in a couple of different places
@@ -20,8 +20,8 @@ class SessionsController < ApplicationController
 
   end
 
-  def destroy
+  def destroy #This is the sessions_controller destroy action
   log_out
-  redirect_to root_url
+  redirect_to root_url #Homepage, redirects dont use root_path
   end
 end

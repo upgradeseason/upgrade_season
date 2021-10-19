@@ -7,6 +7,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:danelli)
+    #Pulls the user out of users.yml
   end
 
   test "login with valid email, invalid password" do
@@ -23,16 +24,18 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
   test "login with valid information followed by logout" do
     get login_path
-    post login_path, params: { session: { email:    @user.email,
-                                          password: 'password' } }
+    post login_path, params: { session: { email:    @user.email, #POST email belonging to user
+                                          password: 'password' } } #All users in test DB will have pw of 'password'
     assert is_logged_in?
-    assert_redirected_to @user #check right redirect target
+    assert_redirected_to @user #Check its the right redirect target
     follow_redirect!
     assert_template 'users/show'
-    assert_select "a[href=?]", login_path, count: 0 
-    #verify login link disappears by verify 0 login paths appear
+    assert is_logged_in? #(Sessions) Helper methods aren’t available in tests, so we use test_helper.rb
+    #^We define test specific method is_logged_in?
+    assert_select "a[href=?]", login_path, count: 0  #Assert there's no such link
+    #Verify login link disappears by verifying 0 login path links appear on that page
     assert_select "a[href=?]", logout_path
-    assert_select "a[href=?]", user_path(@user)
+    assert_select "a[href=?]", user_path(@user) #profile link
     delete logout_path
     assert_not is_logged_in?
     assert_redirected_to root_url

@@ -18,7 +18,8 @@ class UsersController < ApplicationController
       #We needed the user on the form, so we needed an instance variable
       #handle success
       reset_session
-      log_in @user
+      log_in @user #Add a call to log_in (in Users cotroller, create action, to log users in after signup
+      #^Can comment out to see if test works
       flash[:success] = 'Welcome to Upgrade Season!' #hash-like object, value is 'Welc..'
       #flash tells Rails to only persist for 1 request, actually uses cookie.
       redirect_to @user

@@ -1,6 +1,14 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+#This creates a user
+#danelli is the key to the hash
+
 danelli:
   name: Danelli Bolleli
   email: db@example.com
   password_digest: <%= User.digest('password') %>
+  #Only password_digest column exists in DB regarding password
+  #Need a digest of some sort
+  #We use BCrypt cryptographic hash library
+  #EG BCrypt::Password.create ... cost, speed vs security
+  #Relates to user model digest method
