@@ -13,8 +13,8 @@ class User < ApplicationRecord
 
   #Returns hash digest of given string
   #For test db password
-  def User.digest(string)
-  #def self.digest(string) #Idiomatically correct
+  #def User.digest(string)
+  def self.digest(string) #Idiomatically correct
   #class << self #invalid syntax
   #def digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
@@ -33,7 +33,7 @@ class User < ApplicationRecord
   #Associate remember token with user and save it(corresponding user digest) to DB
   def remember
     #self.remember_token = User.new_token #Need the self. otherwise creates a local var due to how Ruby handles assignment
-    remember_token = User.new_token
+    self.remember_token = User.new_token
     #Using self ensures remember_token attribute assigned to user.
     update_attribute(:remember_digest, User.digest(remember_token))
     #Use update_attribute method to update the remember digest
