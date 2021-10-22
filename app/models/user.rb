@@ -30,6 +30,7 @@ class User < ApplicationRecord
   end
 
   #Add a remember method to the user model
+  #Remembers a user in the db for persistent sessions
   #Associate remember token with user and save it(corresponding user digest) to DB
   def remember
     #self.remember_token = User.new_token #Need the self. otherwise creates a local var due to how Ruby handles assignment
@@ -44,9 +45,11 @@ class User < ApplicationRecord
 
   def forget
     update_attribute(:remember_digest, nil)
+    #Note the remember_digest attribute(to db)
   end
 
-  def authenticated?(remember_token)
+  #Returns true if the given token matches the digest
+  def authenticated?(remember_token) #remember_token is variable local to its method, not same as attr_accessor
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
 end
