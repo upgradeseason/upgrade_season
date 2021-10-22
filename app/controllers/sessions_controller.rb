@@ -13,8 +13,12 @@ class SessionsController < ApplicationController
       #log_in (sessions_helper.rb) is a layer of abstraction, bc this could get more complicated over time, and we'll
       #use this in a couple of different places
       #Log user in and redirect to the user's Show page
-      remember user #remember helper, not same as user model's remember method
-      redirect_to user #Rails auto-converts user to the route of the user profile page aka #user_url(user)
+      if params[:session][:remember_me] == '1'
+        remember user #remember helper, not same as user model's remember method
+      else
+        forget user
+      end
+    redirect_to user #Rails auto-converts user to the route of the user profile page aka #user_url(user)
     else
     flash.now[:danger] = 'Invalid email/password combination!'
     render 'new'
