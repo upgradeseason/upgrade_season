@@ -50,7 +50,16 @@ module SessionsHelper
     !current_user.nil? #ivars are nil if not been defined
   end
 
+  #Forgets a persistent session
+  def forget(user)
+    user.forget
+    cookies.delete(:user_id) #cookies method has a delete method just like session
+    cookies.delete(:remember_token)
+  end
+
   def log_out
+    forget(current_user)
+    #session.delete(:user_id)
     reset_session #prevent session fixation/attack vector, ensure all session variables are reset upon logout
     @current_user = nil
     #Put log_out method to use in sessions_controller destory action.
