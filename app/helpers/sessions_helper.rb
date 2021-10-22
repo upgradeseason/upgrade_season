@@ -9,12 +9,39 @@ module SessionsHelper
   #session method safely encrypts user_id, encrypted version visible in browser console
   end
 
+  #Remembers new user in a persistent session
+  #Endows user with remember_token
+  def remember(user)
+    #This will involve calling that user.remember method
+    user.remember
+    #set the cookies (set user_id) #Place the 2 cookies on the browser
+    #> Takes a hash
+    #cookies[:user_id] = { value = user.id,
+                          #expires = 20.years.from_now.utc } #Same thing, common Rails convetion>
+    #Creates encrypted permanent cookie, corresp to user id, we decrypt on next browser request
+    cookies.permanent.signed[:user_id] = user.id
+    cookies.permanent[:remember_token] = user.remember_token
+  end
+
+  #Complicated logic, good idea to test drive, TDD
+  #Only finds by id, need to modify to find by session if user logged out
   def current_user #Method to return that user (the current logged-in user, if any).
-    if session[:user_id]
-      @current_user ||= User.find_by(id: session[:user_id])
+    #if session[:user_id]
+    #In order to not access the session twice, create local var
+    #user_id = session[:user_id]
+    #if user_id
+      #@current_user ||= User.find_by(id: session[:user_id])
+    if (user_id = session[:user_id])
+      @current_user ||= User.find_by(id: user_id)
       #@current_user = @current_user, but if this is nil(false) then 2nd part's evaluated/executed>>^
       #This helper allows us to find the current user in the DB and do things like change site layout based on
       #existence of that user
+    elsif (user_id = cookies.signed[:user_id])
+      user = User.find_by(id: user_id)
+      if user && user.authenticated?(cookies[:remember_token])
+        log_in user
+        @current_user = user # Ruby returns last statemnt evaluated, so user here.
+      end
     end
   end
 
