@@ -1,4 +1,5 @@
 require 'test_helper'
+#Test right in the model (as opposed to integration test)
 
 class UserTest < ActiveSupport::TestCase
   # test "the truth" do
@@ -67,4 +68,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
+  test "authenticated? should return false for a user with nil digest" do
+    assert_not @user.authenticated?('')
+  end
 end

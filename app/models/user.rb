@@ -50,6 +50,7 @@ class User < ApplicationRecord
 
   #Returns true if the given token matches the digest
   def authenticated?(remember_token) #remember_token is variable local to its method, not same as attr_accessor
+    return false if remember_digest.nil? #Note explicitness of writing return dont do anything else vs if/else/end
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
 end
