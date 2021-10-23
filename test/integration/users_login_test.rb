@@ -46,4 +46,23 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", logout_path,       count: 0 #dissappearance
     assert_select "a[href=?]", user_path(@user),  count: 0 #dissappearance
   end
+
+  test "login with remembering" do
+    #Alternate inverse/negated/identical version
+    #log_in_as(@user, remember_me: '0')
+    #assert_nil cookies['remember_token'] #Cookies of string remember token works, not symbol
+    #To Do: Check that cookie remember_token is == to the user's remember_token
+    log_in_as(@user, remember_me: '1')
+    assert_equal cookies['remember_token'], assigns(:user).remember_token
+                       #[:remember_token]
+    #assert_equal @user, assigns(:user).@user
+  end
+
+  test "login without remembering" do
+    #Log in to set the cookie
+    log_in_as(@user, remember_me: '1')
+    #Log in again and verify cookie is gone
+    log_in_as(@user, remember_me: '0')
+    assert_empty cookies[:remember_token]
+  end
 end

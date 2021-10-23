@@ -32,7 +32,12 @@ module SessionsHelper
       #@current_user = @current_user, but if this is nil(false) then 2nd part's evaluated/executed>>^
       #This helper allows us to find the current user in the DB and do things like change site layout based on
       #existence of that user
-    elsif (user_id = cookies.signed[:user_id])
+    #This branch corresponds to user visiting site after having closed the browser
+    elsif (user_id = cookies.signed[:user_id]) 
+      #branch hits if current_user is nil and session remembered
+      #Raise #This branch was untested before.
+      #Raise an exception in the suspected untested block of code: if the code isn’t covered, the tests will pass
+      #If it is covered, the resulting error will identify the relevant test
       user = User.find_by(id: user_id)
       if user && user.authenticated?(cookies[:remember_token])
         log_in user
