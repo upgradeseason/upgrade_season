@@ -1,5 +1,14 @@
 class UsersController < ApplicationController
 
+  #Invoke logged_in_user method before given methods
+  #Give it the name (it's a symbol) of the before_filter
+  #Give it array of actions we want to protect with the before filter (symbols)
+  #Meaning we restrict it to only act on EDIT and UPDATE actions.
+  #So we pass the appropriate =>  only: [:options1, :options2] hash
+  #@user variable is made accessible due to edit and update actions being filtered
+  before_action :logged_in_user, only: [:edit, :update]
+  before_action :correct_user,   only: [:edit, :update]
+
   def show
     #Params used to retreive user ID, same as #User.find(1)
     @user = User.find(params[:id])
@@ -30,14 +39,18 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    #Requres a logged in user.
+    #@user = User.find(params[:id])
     #debugger
   end
 
   def update
-    @user = User.find(params[:id])
+    #Also requires a logged in user.
+    #@user = User.find(params[:id])
     if @user.update(user_params)
-      #Handle a successful update
+      #Handle a successful update.
+      flash[:success] = "Profile updated"
+      redirect_to @user
     else
       render 'edit'
     end
@@ -48,5 +61,23 @@ class UsersController < ApplicationController
     def user_params
     #Strong parameters
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    #Before filters
+
+    #Confirms a logged in user
+    def logged_in_user
+      unless logged_in?
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
+    end
+
+    #Confirms the correct user (and defines @user variable so we can delete our user var assignments in edit/update
+    def correct_user
+      @user = User.find(params[:id])
+      #Make sure @user is same as current user
+      redirect_to(root_url) unless current_user?(@user) #helper used instead of #unless @user == current_user
+      #This boolean is more expressive
     end
 end

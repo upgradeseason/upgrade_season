@@ -23,6 +23,13 @@ module SessionsHelper
     cookies.permanent[:remember_token] = user.remember_token
   end
 
+  #Returns true if the (argument) given user matches the current user.
+  def current_user?(user)
+    #user == current_user
+    user && user == current_user #Catch edge case where user is nil
+  end
+
+
   #Complicated logic, good idea to test drive, TDD
   #Only finds by id, need to modify to find by session if user logged out
   def current_user #Method to return that user (the current logged-in user, if any).

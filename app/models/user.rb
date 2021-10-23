@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  attr_accessor :remember_token #Add accessible attributes since not saving to db
+  #Add accessible attributes, since it's not saving to the DB.
+  attr_accessor :remember_token
   before_save { self.email = email.downcase }
   validates :name,  presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -7,16 +8,16 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }#true
 
-  has_secure_password #Adds #authenticate method (returns false for invalid auth), this is way we got pw attribute
-  #^Automatically creates virtual(dont exist in db) attributes called pw and pw confirmation
-  validates :password, presence: true, length: { minimum: 5 }
+   #Adds .authenticated? method, returns false for invalid authorization. This way, we get password attribute
+  #Automatically creates virtual attributes (meaning it doesn't exist in the DB) called password and pw confirmation
+  has_secure_password
+  validates :password, presence: true, length: { minimum: 5 }, allow_nil: true
 
-  #Returns hash digest of given string
-  #For test db password
+  #For the test db password. It returns the hash digest of a given string.
   #def User.digest(string)
-  def self.digest(string) #Idiomatically correct
-  #class << self #invalid syntax
   #def digest(string)
+  def self.digest(string) #Idiomatically correct
+  #class << self #invalid syntax?
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
@@ -44,13 +45,15 @@ class User < ApplicationRecord
   end
 
   def forget
+    #Note the remember_digest attribute (it goes to the db).
     update_attribute(:remember_digest, nil)
-    #Note the remember_digest attribute(to db)
   end
 
   #Returns true if the given token matches the digest
-  def authenticated?(remember_token) #remember_token is variable local to its method, not same as attr_accessor
-    return false if remember_digest.nil? #Note explicitness of writing return dont do anything else vs if/else/end
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  #remember_token is a variable that's local to its method, not same as attr_accessor
+  def authenticated?(remember_token)
+    #Note explicitness of writing return, it says "Don't do anything else". It's same as writing an if/else/end stmt
+     return false if remember_digest.nil?
+     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
 end

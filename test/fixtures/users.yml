@@ -7,8 +7,14 @@ danelli:
   name: Danelli Bolleli
   email: db@example.com
   password_digest: <%= User.digest('password') %>
-  #Only password_digest column exists in DB regarding password
-  #Need a digest of some sort
-  #We use BCrypt cryptographic hash library
-  #EG BCrypt::Password.create ... cost, speed vs security
-  #Relates to user model digest method
+  #Only the password_digest column exists in the DB, regarding the password.
+  #Need a digest of some sort.
+  #We use BCrypt cryptographic hash library.
+  #EG BCrypt::Password.create ... cost, speed vs security factors into cost setting.
+  #Relates to the user model's digest method.
+
+brucelee:
+  name: Bruce Lee
+  email: brucelee@sample.com
+  password_digest: <%= User.digest('password') %>
+

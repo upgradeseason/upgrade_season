@@ -12,29 +12,39 @@ class UsersEditTest < ActionDispatch::IntegrationTest
 
 
   test "invalid edit" do
+    log_in_as(@user)
     get edit_user_path(@user)
+    assert_template'users/edit'
     patch user_path(@user), params: { user: { name:  "foobar",
-      #PATCH request to users_path
-      #params[:user] hash is expected by the User.new create action.
-      #We're simulating form submission here.
+    #PATCH request to users_path
+    #params[:user] hash is expected by the User update action.
+    #We're simulating form submission here.
                                               email: "user@invalid",
                                               password:              "foo",
                                               password_confirmation: "bar" }}
     #Test right template is rendered
     assert_template 'users/edit'
     #assert_select 'div/alert', text: "The form contains 4 errors."
+    #Fix this div alert test
+
   end
 
-  test "valid edit" do
-    get edit_user_path(@user)
-    patch user_path(@user), params: { user: { name: "Foo Bar",
-                                              email: "foo@bar.com",
+  test "successful edit" do
+    log_in_as(@user)
+    get edit_user_path(@user) 
+    #Gets redirected if not logged in
+    assert_template'users/edit'
+    name = "Foo Bar"
+    email = "foo@bar.com"
+    #Chewing direct patch request
+    patch user_path(@user), params: { user: { name: name,
+                                              email: email,
                                               password:              "",
                                               password_confirmation: "" } }
   assert_not flash.empty? #Dont need to test actual key
-  assert_redirected_to @user
-  @user.reload
-  assert_equal @user.name, "Foo Bar"
+  assert_redirected_to @user #Redirect to profile page
+  @user.reload #Reload the user’s values from the database and confirm that they were successfully updated
+  assert_equal @user.name, "Foo Bar" #Check user info was changed in DB
   assert_equal @user.email, "foo@bar.com"
   end
 end
