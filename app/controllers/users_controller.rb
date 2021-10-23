@@ -29,6 +29,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+    #debugger
+  end
+
   private #Private is only used internally, here by the users_controller, and not exposed to external users via web
 
     def user_params
