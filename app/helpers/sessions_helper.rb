@@ -72,4 +72,15 @@ module SessionsHelper
     @current_user = nil
     #Put log_out method to use in sessions_controller destory action.
   end
+
+  def log_out
+    forget(current_user)
+    session.delete(:user_id)
+    @current_user = nil
+  end
+
+  #Stores the URL trying to be accessed.
+  def store_location
+    session[:forwarding_url] = request.original_url
+  end
 end
