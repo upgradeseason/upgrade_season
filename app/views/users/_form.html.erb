@@ -1,0 +1,23 @@
+    <%# Call to form_with, with f as variable.) %>
+    <%= form_with(model: @user, local: true) do |f| %> 
+    <%# The ACTION of the form is (knows to) POST to URL /users(users path) %>
+      <%# @user is an ActiveRecord object, @user is an argument form_with takes. %>
+      <%= render 'shared/error_messages' %>
+      <%# ^^^ Renders a partial with a dedicated shared partial directory for views across multiple controllers. %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+      <%# form-control class added for each field (for formatting) %>
+
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+      <%= f.submit "Create my account", class: "btn btn-primary" %>
+    <% end %>
+

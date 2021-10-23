@@ -9,7 +9,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     get signup_path #We have a named path, we visit it.
     #Simulate going to signup page to catch bad mistakes/major regressions, aka verify renders w/o error.
     #We issue POST request to users_path(the way submit button does) so signup_path isn't necessary.
-    assert_no_difference 'User.count' do #User.count is a string argument to #assert_no_difference method. 
+    assert_no_difference 'User.count' do #User.count is a string argument to #assert_no_difference method.
+      #We're counting bc we're creating a user.
       #The count method is avail on every ActiveRecord class.
       post users_path, params: { user: { name:  "foobar",
       #POST request to users_path
