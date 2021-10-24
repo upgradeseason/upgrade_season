@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
+    #debugger
   end
 
   #Intricate logic
@@ -9,19 +10,20 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: params[:session][:email].downcase)
     #If user exists, then we authenticate the user by the password, authenticate does the comparision of pw for us
     if @user&.authenticate(params[:session][:password])
+      forwarding_url = session[:forwarding_url]
       reset_session #prevent session fixation attack vector, ensure all session variables are reset upon logout
-      log_in @user #log_in method used, related to sessions, put in module(helper)
-      #log_in (sessions_helper.rb) is a layer of abstraction, bc this could get more complicated over time, and we'll
-      #use this in a couple of different places
-      #Log user in and redirect to the user's Show page
       #Ternary operator makes if/else/end statement one line here
       params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
       #() needed ^ bc Ruby doesn't know how to parse this line without them here
       #remember helper, not same as user model's remember method
-    redirect_to @user #Rails auto-converts user to the route of the user profile page aka #user_url(user)
+      log_in @user #log_in method used, related to sessions, put in module(helper)
+      #log_in (sessions_helper.rb) is a layer of abstraction, bc this could get more complicated over time, and we'll
+      #use this in a couple of different places
+      #Log user in and redirect to the user's Show page
+      redirect_to forwarding_url || @user #Rails auto-converts user to the route of the user profile page aka #user_url(user)
     else
-    flash.now[:danger] = 'Invalid email/password combination!'
-    render 'new'
+      flash.now[:danger] = 'Invalid email/password combination!'
+      render 'new'
     end
 
   end

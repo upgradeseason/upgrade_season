@@ -81,6 +81,9 @@ module SessionsHelper
 
   #Stores the URL trying to be accessed.
   def store_location
-    session[:forwarding_url] = request.original_url
+    #Use the request object to get the forwarding URL
+    #URL is put into the session variable under the :forwarding_url key
+    #Only for GET requests
+    session[:forwarding_url] = request.original_url if request.get?
   end
 end
