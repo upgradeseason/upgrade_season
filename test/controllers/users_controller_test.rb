@@ -11,6 +11,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should redirect index when not logged in" do
+    get users_path                  #users_path is the INDEX action's named route
+    assert_redirected_to login_url  #Redirect logged out users to login_url
+  end
   #Emphasize how we're handling the access to each of these (user controller) actions.
   #We want to issue a GET request to the EDIT action and issue a PATCH request to UPDATE action.
   #And verify if user is logged in they get redirected to the login URL.

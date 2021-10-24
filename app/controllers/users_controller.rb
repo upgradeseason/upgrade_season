@@ -6,8 +6,12 @@ class UsersController < ApplicationController
   #Meaning we restrict it to only act on EDIT and UPDATE actions.
   #So we pass the appropriate =>  only: [:options1, :options2] hash
   #@user variable is made accessible due to edit and update actions being filtered
-  before_action :logged_in_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:index, :edit, :update]
   before_action :correct_user,   only: [:edit, :update]
+
+  def index
+    @users = Users.all
+  end
 
   def show
     #Params used to retreive user ID, same as #User.find(1)
