@@ -16,12 +16,15 @@ class UsersController < ApplicationController
     #Replaced User.all with object that knows about pagination
     #Bc its users controller, will_paginate knows to paginate ivar @users
     @users = User.paginate(page: params[:page])
+    #Show only activated users
+    #@users = User.where(activated: true).paginate(page: params[:page])
   end
 
   def show
     #Params used to retreive user ID, same as #User.find(1)
     @user = User.find(params[:id])
     #debugger #remove comment to enable
+    #redirect_to root_url and return unless @user.activated
   end
 
   #New action to Users controller
@@ -36,12 +39,15 @@ class UsersController < ApplicationController
       #We needed the user on the form, so we needed an instance variable
       #handle success
       reset_session
-      log_in @user #Add a call to log_in (in Users cotroller, create action, to log users in after signup
+      @user.send_activation_email
+      #UserMailer.account_activation(@user).deliver_now #Better to attach to user model, nice lil abstraction layer
+      #log_in @user #Add a call to log_in (in Users cotroller, create action, to log users in after signup
       #^Can comment out to see if test works
-      flash[:success] = 'Welcome to Upgrade Season!' #hash-like object, value is 'Welc..'
+      flash[:info] = 'Please check your email to activate your account' #hash-like object, value is 'Welc..'
       #flash tells Rails to only persist for 1 request, actually uses cookie.
-      redirect_to @user
+      #redirect_to @user
       #redirect_to user's profile page, eg users/1
+      redirect_to root_url
     else
       render 'new' #Renders new template
     end

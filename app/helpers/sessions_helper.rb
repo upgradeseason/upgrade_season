@@ -46,7 +46,7 @@ module SessionsHelper
       #Raise an exception in the suspected untested block of code: if the code isn’t covered, the tests will pass
       #If it is covered, the resulting error will identify the relevant test
       user = User.find_by(id: user_id)
-      if user && user.authenticated?(cookies[:remember_token])
+      if user && user.authenticated?(:remember, cookies[:remember_token])
         log_in user
         @current_user = user # Ruby returns last statemnt evaluated, so user here.
       end

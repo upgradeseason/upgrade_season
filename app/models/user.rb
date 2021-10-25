@@ -29,6 +29,7 @@ class User < ApplicationRecord
   def User.new_token
   #def self.new_token #Idiomatically correct
   #def new_token #invalid syntax?
+  #Self is optional in the model
     SecureRandom.urlsafe_base64
   end
 
@@ -53,10 +54,36 @@ class User < ApplicationRecord
 
   #Returns true if the given token matches the digest
   #remember_token is a variable that's local to its method, not same as attr_accessor
-  def authenticated?(remember_token)
+  #def authenticated?(remember_token)
     #Note explicitness of writing return, it says "Don't do anything else". It's same as writing an if/else/end stmt
-     return false if remember_digest.nil?
-     BCrypt::Password.new(remember_digest).is_password?(remember_token)
+     #return false if remember_digest.nil?
+     #BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  #end
+  def authenticated?(attribute, token)
+    #Instead of tying this to the remember_digest we can do this >
+    digest = send("#{attribute}_digest")
+    #This method authenticates a different token against a different digest based on the value of this attribute.
+    return false if digest.nil?
+    #New password called on digest
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  #Activates an account
+  def activate
+    #user.update_attribute(:activated,    true)
+    #user.update_attribute(:activated_at, Time.zone.now)
+    #self.update_attribute(:activated,    true)
+    #self.update_attribute(:activated_at, Time.zone.now)
+    #Calls DB twice
+    #update_attribute(:activated,    true)
+    #update_attribute(:activated_at, Time.zone.now)
+    update_columns(activated: true, activated_at: Time.zone.now)
+    #^made this one line by knowing the method and checking std lib documentation
+  end
+
+  #refactor a little by moving some of the user manipulation out of the controller and into the model
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
   end
 
   private
