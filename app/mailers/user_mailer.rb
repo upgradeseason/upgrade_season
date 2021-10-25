@@ -7,10 +7,8 @@ class UserMailer < ApplicationMailer
   #
   def account_activation(user) #User is the parameter
     @user = user
+    #Mail method takes a subject key
     mail to: user.email, subject: "Account activation"
-  end
-
-    mail to: "to@example.org"
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml

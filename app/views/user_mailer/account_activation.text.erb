@@ -1,7 +1,10 @@
-Upgrade Season
-
 Hi <%= @user.name %>,
 
-Welcome to Upgrade Season! Click on the link below to activate your account:
+Welcome to Upgrade Season! Click the link below to activate your account:
 
-<%= link_to "Activate", ... %>
+<%# We needed a link, we used the link_to helper %>
+<%# link_to "Activate", ... %>
+<%# Token itself is an arg to the named route since we're modeling activations using Acct Activations resource %>
+<%# Set a query parameter by including hash in named route %>
+<%# Email address will be available via params[:email] %>
+<%= edit_account_activation_url(@user.activation_token, email: @user.email) %>
