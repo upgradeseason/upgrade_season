@@ -6,11 +6,12 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-#Bang raises exception if it doesn't work (noisy method)
+#Bang raises exception if it doesn't work, it's a noisy method => avoids silent errors, makes debugging easier
 User.create!(name:  "Example User",
              email: "example1234@upgradeseason.com",
              password:              "foobar",
-             password_confirmation: "foobar")
+             password_confirmation: "foobar",
+             admin:                 true)
 
 99.times do |n|
   name = Faker::Name.name

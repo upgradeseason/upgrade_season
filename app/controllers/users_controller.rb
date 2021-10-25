@@ -6,11 +6,16 @@ class UsersController < ApplicationController
   #Meaning we restrict it to only act on EDIT and UPDATE actions.
   #So we pass the appropriate =>  only: [:options1, :options2] hash
   #@user variable is made accessible due to edit and update actions being filtered
-  before_action :logged_in_user, only: [:index, :edit, :update]
+  #Require users be logged in to delete etc
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
+  before_action :admin_user,     only: :destroy
 
   def index
-    @users = User.all
+    #will_paginate gem does magic, amazing things, auto adds paginate method to every ActiveRecord object.
+    #Replaced User.all with object that knows about pagination
+    #Bc its users controller, will_paginate knows to paginate ivar @users
+    @users = User.paginate(page: params[:page])
   end
 
   def show
@@ -44,7 +49,7 @@ class UsersController < ApplicationController
 
   def edit
     #Requres a logged in user.
-    #@user = User.find(params[:id])
+    #@user = User.find(params[:id]) #Commented out due to filter finding user
     #debugger
   end
 
@@ -60,10 +65,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to users_url #the users index
+  end
+
   private #Private is only used internally, here by the users_controller, and not exposed to external users via web
 
     def user_params
-    #Strong parameters
+    #Strong parameters => require and permit
+    #Prevents attacker using curl to send patch request to make /users/17?admin=1
+    #Write test to make sure admin attribute is not permitted attribute
+    #It’s a good idea to write a test for any attribute that isn’t editable
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 
@@ -86,4 +100,10 @@ class UsersController < ApplicationController
       redirect_to(root_url) unless current_user?(@user) #helper used instead of #unless @user == current_user
       #This boolean is more expressive
     end
+
+    #Confirms an admin user
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
+    end
+
 end

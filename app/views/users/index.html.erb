@@ -1,11 +1,20 @@
 <% provide(:title, 'All users') %>
 <h1>All users</h1>
 
+<%= will_paginate %>
+<%#Bc its in users view, it auto looks for users object and displays pagination links %>
+
 <ul class="users">
-  <% @users.each do |user|  %>
-    <li>
-      <%= gravatar_for user, size: 50 %>
-      <%= link_to user.name, user %>
-    </li>
-  <% end %>
+  <%= render @users %>
+  <%# ^We render the partial to our users, we replaced the "li" with a render call. Rails sees the collection and knows to iterature through calling 
+the partial corresponding to the class name for each of the objects, and rendering in turn
+we call render on a user variable of class User, and Rails looks for the partial %>
+  <%# <% @users.each do |user| %>
+    <%# Render the partial, render and the name of the partial %>
+    <%# <% render 'users/user', user: user %>
+    <%# It's the user partial (no underscore), and we pass the user var. We render a partial with a local var %>
+  <%# <% end %>
 </ul>
+
+<%= will_paginate %>
+<%# Pagination displays above and here, below %>

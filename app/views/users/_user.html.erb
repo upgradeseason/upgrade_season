@@ -1,0 +1,21 @@
+<%# Important that this partial has the same name as the class
+We can just pull the "li" from index.html.erb
+Replacing it with a render call
+
+Here we use HTML to render a user %>
+
+<li>
+  <%# There are many cool ways to render ActiveRecord objects %>
+  <%= gravatar_for user, size: 50 %>
+  <%= link_to user.name, user %>
+  <% if current_user.admin? && !current_user?(user) %> <%#Not == to current_user being rendered %>
+    | <%= link_to "delete", user, method: :delete,
+                                  data: { confirm: "Are you sure?" } %>
+  <%# Lil bit of JS added ^ %>
+
+  <%# if not added delete it'd show %>
+  <% end %>
+
+
+
+</li>

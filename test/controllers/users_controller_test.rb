@@ -52,4 +52,27 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert flash.empty?
     assert_redirected_to root_url
   end
+
+  test "should not allow assigning user admin role" do
+    log_in_as(@other_user)
+    assert_not @other_user.admin? #Verify user is currently not admin
+    patch user_path(@other_user), params: { user: { name: @other_user.name, email: @other_user.email, admin: true }}
+    assert_not @other_user.reload.admin? #Reload, pull user from DB, then recheck if admin, to conclude the test.
+  end
+
+  test "should redirect destroy when not logged in" do
+    assert_no_difference 'User.count' do #Invalid info shouldn't change user account.
+      #Issue delete request to destroy action (using named route)
+      delete user_path(@user)
+    end
+    assert_redirected_to login_url
+  end
+
+  test "should redirect destroy when logged in as non-admin" do
+    log_in_as(@other_user)
+    assert_no_difference 'User.count' do
+      delete user_path(@user)
+      end
+    assert_redirected_to root_url
+  end
 end

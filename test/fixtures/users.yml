@@ -12,9 +12,17 @@ danelli:
   #We use BCrypt cryptographic hash library.
   #EG BCrypt::Password.create ... cost, speed vs security factors into cost setting.
   #Relates to the user model's digest method.
+  admin: true
 
 brucelee:
   name: Bruce Lee
   email: brucelee@sample.com
   password_digest: <%= User.digest('password') %>
 
+#We can use embedded Ruby inside of fixtures
+<% 30.times do |n| %>
+user_<%= n %>:
+  name: <%= "User #{n}" %>
+  email: <%= "User-#{n}@example.com" %>
+  password_digest: <%= User.digest('password') %>
+<% end %>

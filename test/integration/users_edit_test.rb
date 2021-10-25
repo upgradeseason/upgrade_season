@@ -24,7 +24,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
                                               password_confirmation: "bar" }}
     #Test right template is rendered
     assert_template 'users/edit'
-    #assert_select 'div/alert', text: "The form contains 4 errors."
+    assert_select 'div.alert'
+    #assert_select 'div.alert', text: "The form contains 4 errors."
     #Fix this div alert test
     #assert_not flash.empty?
 
