@@ -67,12 +67,12 @@ Rails.application.configure do
   host = 'upgradeseason.com'
   config.action_mailer.default_url_options = { host: 'upgradeseason.com' }
   ActionMailer::Base.smtp_settings = {
-    :address        => 'smtp.sendgrid.net',
+    :address        => 'smtp.mailgun.org',
     :port           => '587',
     :authentication => :plain,
-    :user_name      => ENV['SENDGRID_USERNAME'],
-    #ENV hash that lives on Heroku used^
-    :password       => ENV['SENDGRID_PASSWORD'],
+    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+    #ENV hash that lives on what Mailgun/Heroku uses^?
+    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
     :domain         => 'heroku.com',
     :enable_starttls_auto => true
   }
