@@ -67,7 +67,7 @@ Rails.application.configure do
   host = 'upgradeseason.com'
   config.action_mailer.default_url_options = { host: 'upgradeseason.com' }
   ActionMailer::Base.smtp_settings = {
-    :address        => 'smtp.mailgun.org',
+    :address        => 'smtp.mailgun.com',
     :port           => '587',
     :authentication => :plain,
     :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
