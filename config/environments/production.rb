@@ -65,15 +65,16 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   host = 'upgradeseason.com'
-  config.action_mailer.default_url_options = { host: 'upgradeseason.com' }
+  config.action_mailer.default_url_options = { host: host }
   ActionMailer::Base.smtp_settings = {
-    :address        => 'sandboxeb8b034bdacc440986a2ffdbea26ddbc.mailgun.org',
+    :address        => ENV['MAILGUN_SMTP_SERVER'],
     :port           => '587',
     :authentication => :plain,
     :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
-    #ENV hash that lives on what Mailgun/Heroku uses^?
+    #ENV hash that lives on Heroku, Heroku uses it.
     :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-    :domain         => 'heroku.com',
+    #:domain         => 'heroku.com',
+    :domain         => 'upgradeseason.com',
     :enable_starttls_auto => true
   }
 
