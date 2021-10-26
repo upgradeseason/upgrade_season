@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     if @user.save
       #We needed the user on the form, so we needed an instance variable
       #handle success
-      reset_session
+      #reset_session
       @user.send_activation_email
       #UserMailer.account_activation(@user).deliver_now #Better to attach to user model, nice lil abstraction layer
       #log_in @user #Add a call to log_in (in Users cotroller, create action, to log users in after signup
