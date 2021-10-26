@@ -12,6 +12,9 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     #It's protected page, so log in.
     log_in_as(@admin)
     #what should it do? Visit index path >
+    first_page_of_users = User.paginate(page: 1)
+    first_page_of_users.first.toggle!(:activated)
+    #^What does this do?
     get users_path
     #It should render index page, verify first page of users is present
     assert_template 'users/index'
@@ -22,8 +25,9 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     assert_select 'div.pagination', count: 2
     #Test for each user there's link to profile page
     #user_path of user
-    first_page_of_users = User.paginate(page: 1)
-    first_page_of_users.each do |user|
+    assigns(:users).each do |user|
+      #assert user.activated?
+      #^Test that user is activated? needs to be implemented
       assert_select 'a[href=?]', user_path(user), text: user.name
       unless user == @admin
         assert_select 'a[href=?]', user_path(user), text: 'delete'

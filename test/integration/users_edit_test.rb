@@ -32,7 +32,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "successful edit with friendly forwarding" do
-   get edit_user_path(@user)                    #User tries to edit
+    get edit_user_path(@user)                    #User tries to edit
     assert_not_nil session[:forwarding_url]     #:forwarding_url has been stored
     log_in_as(@user)                            #User logs in
     assert_redirected_to edit_user_path(@user)  #User redirected to edit page

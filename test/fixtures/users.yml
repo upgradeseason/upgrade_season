@@ -16,6 +16,13 @@ danelli:
   activated: true
   activated_at: <%= Time.zone.now %>
 
+inactive:
+  name: Inactive User
+  email: inactive@upgradeseason.com
+  password_digest: <%= User.digest('password') %>
+  admin: false
+  activated: false
+
 brucelee:
   name: Bruce Lee
   email: brucelee@sample.com

@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
         #Log user in and redirect to the user's Show page
         redirect_to forwarding_url || @user #Rails auto-converts user to the route of the user profile page aka #user_url(user)
       else
-        message  = "Your account has not been activated yet."
+        message  = "Your account has not been activated yet. "
         message += "Please check your email for the activation link."
         flash[:warning] = message
         redirect_to root_url
