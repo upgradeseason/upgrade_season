@@ -1,3 +1,5 @@
+<%# Great for rendering user errors %>
+
 <% if @user.errors.any? %>
   <div id="error_explanation">
     <div class="alert alert-danger"> <%# alert-danger are bootstrap classes %>
@@ -5,7 +7,7 @@
     </div>
     <ul>
     <% @user.errors.full_messages.each do |msg| %>
-    <%# ^^^ error messgages rely on @user.errors.full_messages(but only applies to ActiveRecord object %>
+    <%# ^Error messgages rely on @user.errors.full_messages, but this only applies to an ActiveRecord object %>
       <li><%= msg %></li>
     <% end %>
     </ul>

@@ -3,7 +3,7 @@ class AccountActivationsController < ApplicationController
   #Matches session controller to log users in.
   def edit
     user = User.find_by(email: params[:email])
-    #Authenticate according to email address in params hash
+    #Authenticate according to email address in params hash from key value pair in URL
     #The params ID passed to authenticated? is the actual token
     #Only executes if user not activated.
     if user && !user.activated? && user.authenticated?(:activation, params[:id])

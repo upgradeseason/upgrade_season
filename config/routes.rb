@@ -1,6 +1,8 @@
 #Define URLs and where they go to
 
 Rails.application.routes.draw do
+  get 'password_resets/new'
+  get 'password_resets/edit'
   get 'account_activations/edit'
   #Mapping establishes that root URL will be static pgs controller, home action.
   root 'static_pages#home'
@@ -20,4 +22,5 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy' #Destroy an object/session
   resources :users #special resources method used to obtain full suite of RESTful routes automatically
   resources :account_activations, only: [:edit]
+  resources :password_resets,     only: [:new, :create, :edit, :update]
 end

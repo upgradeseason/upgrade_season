@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   #Add accessible attributes, since it's not saving to the DB.
-  attr_accessor :remember_token, :activation_token
+  attr_accessor :remember_token, :activation_token, :reset_token
   #before_save callback
   before_save :downcase_email #method reference used, not { self.email = email.downcase }
   before_create :create_activation_digest #ActiveRecord callback, give method reference
@@ -84,6 +84,23 @@ class User < ApplicationRecord
   #refactor a little by moving some of the user manipulation out of the controller and into the model
   def send_activation_email
     UserMailer.account_activation(self).deliver_now
+  end
+
+  #Sets the password reset attributes
+  def create_reset_digest
+    self.reset_token = User.new_token
+    #1 DB operation > hits DB only once
+    self.update_columns(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now)
+  end
+
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
+  end
+
+  #Returns true if a password reset has expired
+  def password_reset_expired?
+    #The way to do this is: Compare the reset_sent_at timestamp to 'earlier than' 2.hours.ago
+    reset_sent_at < 2.hours.ago
   end
 
   private
