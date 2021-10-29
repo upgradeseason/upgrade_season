@@ -23,4 +23,7 @@ Rails.application.routes.draw do
   resources :users #special resources method used to obtain full suite of RESTful routes automatically
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
+  #Add some routes for this, creating and destroying microposts, for mp resource
+  resources :microposts,          only: [:create, :destroy]
+  #Break in convention: we didn't add :new or :edit (in mp ctrlr) bc we're manipulating mp's thru user home and profile page, rather than separate views
 end

@@ -1,0 +1,14 @@
+  <%#Let's make a row (and put in partials preemtively) %>
+  <div class="row">
+  <aside class="col-md-4"> <%#These are Bootstrap classes.%>
+    <section class="user_info">
+      <%= render 'shared/user_info' %>
+    </section>
+    <section class="micropost_form">
+      <%= render 'shared/micropost_form' %>
+    </section>
+  </aside> <%# The aside is the left side bar, so we want it outside of the aside%>
+  <div class="col-md-8">
+    <h3>Mini-post Feed</h3>
+    <%= render 'shared/feed' %>
+  </div>

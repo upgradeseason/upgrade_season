@@ -1,8 +1,10 @@
 <%# Important that this partial has the same name as the class
 We can just pull the "li" from index.html.erb
 Replacing it with a render call
-
-Here we use HTML to render a user %>
+Here we use HTML to render a user
+Called using render @users in users index.html.erb
+This partial is a collection of things with class user,
+there's automatically a local var called user%>
 
 <li>
   <%# There are many cool ways to render ActiveRecord objects %>
@@ -12,10 +14,8 @@ Here we use HTML to render a user %>
     | <%= link_to "delete", user, method: :delete,
                                   data: { confirm: "Are you sure?" } %>
   <%# Lil bit of JS added ^ %>
-
   <%# if not added delete it'd show %>
   <% end %>
-
-
-
 </li>
+
+<%# Define analog of this for microposts %>

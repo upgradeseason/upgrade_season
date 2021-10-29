@@ -23,6 +23,9 @@ class UsersController < ApplicationController
   def show
     #Params used to retreive user ID, same as #User.find(1)
     @user = User.find(params[:id])
+    #Go through the @user.microposts association
+    #@microposts var used in show.html.erb
+    @microposts = @user.microposts.paginate(page: params[:page])
     #debugger #remove comment to enable
     #redirect_to root_url and return unless true
     redirect_to root_url and return unless @user.activated?
@@ -90,27 +93,16 @@ class UsersController < ApplicationController
 
     #Before filters
 
-    #Confirms a logged in user
-    def logged_in_user
-      unless logged_in?
-        #debugger
-        store_location #Created this method in the sessions helper
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
-    end
-
     #Confirms the correct user (and defines @user variable so we can delete our user var assignments in edit/update
     def correct_user
       @user = User.find(params[:id])
       #Make sure @user is same as current user
       redirect_to(root_url) unless current_user?(@user) #helper used instead of #unless @user == current_user
       #This boolean is more expressive
-    end
 
+    end
     #Confirms an admin user
     def admin_user
       redirect_to(root_url) unless current_user.admin?
     end
-
 end

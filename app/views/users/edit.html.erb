@@ -8,7 +8,7 @@
     <%= form_with(model: @user, local: true) do |f| %> 
     <%# The ACTION of the form is (knows to) POST to URL /users(users path) %>
       <%# @user is an ActiveRecord object, @user is an argument form_with takes. %>
-      <%= render 'shared/error_messages' %>
+      <%= render 'shared/error_messages', object: f.object %>
       <%# ^^^ Renders a partial with a dedicated shared partial directory for views across multiple controllers. %>
 
       <%= f.label :name %>

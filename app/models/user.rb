@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  #Passing an option to the has_many association method: if a user is destroyed, the user’s microposts are destroyed
+  #Arranges for the dependent microposts to be destroyed when the user itself is destroyed
+  has_many :microposts, dependent: :destroy
   #Add accessible attributes, since it's not saving to the DB.
   attr_accessor :remember_token, :activation_token, :reset_token
   #before_save callback
@@ -101,6 +104,16 @@ class User < ApplicationRecord
   def password_reset_expired?
     #The way to do this is: Compare the reset_sent_at timestamp to 'earlier than' 2.hours.ago
     reset_sent_at < 2.hours.ago
+  end
+
+  #Defines a proto-feed
+  #See "Following users" for the full implementation.
+
+  def feed
+    Micropost.where("user_id = ?", id)
+    #self.microposts is equiv inside this user model
+    #Useful function for issuing SQL queries
+    #? escapes out anything inserted, avoids SQL injection, never b vulnerable
   end
 
   private

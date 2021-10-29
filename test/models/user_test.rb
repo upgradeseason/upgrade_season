@@ -1,15 +1,13 @@
 require 'test_helper'
-#Test right in the model (as opposed to integration test)
+#Let's test right in the model, as opposed to an integration test.)
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
   def setup
     @user = User.new(name: "Example Name", email: "example_email@example.com",
                      password: "foobar", password_confirmation: "foobar")
   end
 
+  #Start with basic sanity test.
   test "should be valid" do
     assert @user.valid?
     end
@@ -71,5 +69,13 @@ class UserTest < ActiveSupport::TestCase
   #start with a user that has no remember digest and then call authenticated?
   test "authenticated? should return false for a user with nil digest" do
     assert_not @user.authenticated?(:remember, '')
+  end
+
+  test "associated microposts should be destroyed" do
+    @user.save
+    @user.microposts.create!(content: "Lorem ipsum")
+    assert_difference 'Micropost.count', -1 do
+      @user.destroy
+    end
   end
 end

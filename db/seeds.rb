@@ -27,3 +27,10 @@ User.create!(name:  "Example User",
              activated_at: Time.zone.now)
 
 end
+
+#users = User.order(:created_at).take(6)
+users = User.order(:created_at).first(6)
+50.times do #Doesn't create big runs
+  content = Faker::Lorem.sentence(word_count: 5)
+  users.each { |user| user.microposts.create!(content: content) }
+end

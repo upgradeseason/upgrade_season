@@ -1,13 +1,13 @@
 <%# Great for rendering user errors %>
 
-<% if @user.errors.any? %>
+<% if object.errors.any? %>
   <div id="error_explanation">
     <div class="alert alert-danger"> <%# alert-danger are bootstrap classes %>
-      The form contains <%= pluralize(@user.errors.count, "error") %>.
+      The form contains <%= pluralize(object.errors.count, "error") %>.
     </div>
     <ul>
-    <% @user.errors.full_messages.each do |msg| %>
-    <%# ^Error messgages rely on @user.errors.full_messages, but this only applies to an ActiveRecord object %>
+    <% object.errors.full_messages.each do |msg| %>
+    <%# ^Error messgages rely on object.errors.full_messages, but this only applies to an ActiveRecord object %>
       <li><%= msg %></li>
     <% end %>
     </ul>

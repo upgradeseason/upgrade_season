@@ -1,15 +1,5 @@
-<div class="center jumbotron">
-  <h1>Welcome to the Upgrade Season App!</h1>
-
-  <h2>
-    Home page for 
-    <a href="https://www.upgradeseason.com/">Upgrade Season</a>
-  </h2>
-
-  <h3>This is where we share, learn, and grow together!</h3>
-
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-success" %>
-</div>
-
-<%= link_to image_tag('upgrade_season_logo.png', alt: 'Upgrade Season logo', width: '200'),
-                      'https://www.upgradeseason.com/'%>
+<% if logged_in? %>
+  <%= render 'static_pages/logged_in_home' %>
+<% else %>
+  <%= render 'static_pages/logged_out_home' %>
+<% end %>

@@ -1,11 +1,31 @@
+<%# Show page for users is just the profile page
+Let's write the code to display microposts %>
+
+<%#<% provide(:title, @user.name); raise %>
+<%#raise added so we know if anything goes horribly wrong on this page we're covered%>
 <% provide(:title, @user.name) %>
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
-      <h1>
+      <!--<h1>-->
+      <%#Commented out h1 tags^ %>
+        <h1>
         <%= gravatar_for @user %>
         <%= @user.name %>
-      </h1>
+        </h1>
+      <!--</h1>-->
     </section>
   </aside>
+  <%#After aside, put div, its a Bootstrap class %>
+  <div class="col-md-8">
+    <% if @user.microposts.any? %>
+      <h3>Mini-Posts (<%= @user.microposts.count %>)</h3>
+      <%# Render the microposts %>
+      <ol class="microposts">
+        <%= render @microposts %>
+      </ol>
+      <%#We are in the Users controller so we’ll pass an explicit @microposts variable to will_paginate, defined in show action %>
+      <%= will_paginate @microposts %>
+    <% end %>
+  </div>
 </div>

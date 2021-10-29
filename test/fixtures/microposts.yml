@@ -1,0 +1,48 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+plum:
+  content: "I just ate a plum!"
+  created_at: <%= 10.minutes.ago %>
+  user: danelli
+
+dictionary:
+  content: "Check out the Thesaurus to have thoughts in different words which may bring insight and a new perspective to your thinking: https://www.thesaurus.com/browse/attain"
+  created_at: <%= 2.years.ago %>
+  user: danelli
+
+nature_video:
+  content: "Big cats are smart: https://www.youtube.com/watch?v=HBqWlU-_kVs"
+  created_at: <%= 3.hours.ago %>
+  user: danelli
+
+most_recent:
+  content: "Writing a short test"
+  created_at: <%= Time.zone.now %>
+  user: danelli
+
+<% 30.times do |n| %>
+micropost_<%= n %>:
+  content: <%= Faker::Lorem.sentence(5) %>
+  created_at: <%= 44.days.ago %>
+  user: danelli
+<% end %>
+
+plants:
+  content: "Do you want cleaner air in your home? Because that's how you get cleaner air."
+  created_at: <%= 3.years.ago %>
+  user: brucelee
+
+state:
+  content: "Go sightseeing in your own state!"
+  created_at: <%= 4.days.ago %>
+  user: brucelee
+
+funny:
+  content: "Find a reason to smile"
+  created_at: <%= 10.minutes.ago %>
+  user: brucelee
+
+suv:
+  content: "Wow, you really have a vehicle of great utility"
+  created_at: <%= 4.hours.ago %>
+  user: brucelee
