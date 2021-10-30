@@ -1,4 +1,4 @@
-<%#Micrposot partial. There will automatically be a micropost variable here %>
+<%#Micrpost partial. There will automatically be a micropost variable here %>
 <%# Adds a CSS id for each micropost to manipulate individual microposts using js%>
 <li id="micropost-<%= micropost.id %>">
   <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>

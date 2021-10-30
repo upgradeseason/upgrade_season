@@ -17,7 +17,7 @@ class Micropost < ApplicationRecord
                       size:         { less_than: 2.megabytes }
 
   # Returns a resized image for display
-  def display_image
-    image.variant(resize_to_limit: [500, 500])
-  end
+  #def display_image
+  #  image.variant(resize_to_limit: [500, 500])
+  #end
 end
