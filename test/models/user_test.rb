@@ -78,4 +78,20 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+
+  test "should follow and unfollow a user" do
+    danelli  = users(:danelli)
+    brucelee = users(:brucelee)
+    assert_not danelli.following?(brucelee)
+    # Utility methods, to go in user model
+    danelli.follow(brucelee)
+    assert danelli.following?(brucelee)
+    # Test for passive relationships
+    assert brucelee.followers.include?(danelli)
+    danelli.unfollows(brucelee)
+    assert_not danelli.following?(brucelee)
+    # Users can't follow themselves
+    danelli.follow(danelli)
+    assert_not danelli.following?(danelli)
+  end
 end
