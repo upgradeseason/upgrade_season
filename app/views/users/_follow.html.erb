@@ -4,7 +4,7 @@
 <%# Analog to users controller new %>
 <%# Hidden field pulls out user to be followed %>
 <%# Pull it out with params of followed_id %>
-<%= form_with(current_user.active_relationships.build) do |f| %>
-  <div><%= hidden_field_tag :followed_id, @user.id </div>
+<%= form_with(model: current_user.active_relationships.build, local: true) do |f| %>
+  <div><%= hidden_field_tag :followed_id, @user.id %></div>
   <%= f.submit "Follow", class: "btn btn-primary" %>
 <% end %>
