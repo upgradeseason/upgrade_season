@@ -1,0 +1,6 @@
+<%# When we submit this form, it goes to destroy action of relationship controller, this gives us ID of relationship %>
+<%# We then find the ID in the DB and destroy %>
+<%= form_with(current_user.active_relationships.find_by(followed_id: @user.id),
+              html: { method: :delete }) do |f| %>
+  <%= f.submit "Unfollow", class: "btn" %>
+<% end %>

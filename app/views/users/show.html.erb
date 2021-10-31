@@ -15,9 +15,13 @@ Let's write the code to display microposts %>
         </h1>
       <!--</h1>-->
     </section>
+    <section class="stats">
+      <%= render 'shared/stats' %>
+    </section>
   </aside>
   <%#After aside, put div, its a Bootstrap class %>
   <div class="col-md-8">
+    <%= render 'follow_form' if logged_in? %>
     <% if @user.microposts.any? %>
       <h3>Mini-Posts (<%= @user.microposts.count %>)</h3>
       <%# Render the microposts %>

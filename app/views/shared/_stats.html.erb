@@ -1,0 +1,23 @@
+<% @user ||= current_user %>
+<div class="stats"> <%# We have 2 links %>
+  <%# Following_user_path of @user %>
+  <a href="<%= following_user_path(@user) %>"> <%# Didn't have routes defined yet so stubbed it out %>
+    <%# put it in strong tag with id following, class stat, AJAX accesses elements on the page by their unique ids%>
+    <strong id="following" class="stat">
+      <%# This should be the following count %>
+      <%# Rails counts directly in the DB for effeciency %>
+      <%= @user.following.count %>
+    </strong>
+    following
+  </a>
+   <a href="<%= followers_user_path(@user) %>"> <%# Dont have routes defined yet so stub it out %>
+    <%# OK now we have routes defined, gives us following(ers)_user_path %>
+    <%# Now need to define actions and views for these %>
+    <%# put it in strong tag with id following, class stat%>
+    <strong id="followers" class="stat">
+      <%# This should be the following count %>
+      <%= @user.followers.count %>
+    </strong>
+    followers
+  </a>
+</div>
