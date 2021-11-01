@@ -8,7 +8,7 @@ class RelationshipsController < ApplicationController
     current_user.follow(@user)
     #Ajax implementation
     respond_to do |format|
-      format.html { redirect_to user }
+      format.html { redirect_to @user }
       format.js #Unobtrusive javascript
     #redirect_to user
     end
