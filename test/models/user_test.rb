@@ -94,4 +94,26 @@ class UserTest < ActiveSupport::TestCase
     danelli.follow(danelli)
     assert_not danelli.following?(danelli)
   end
+
+  test "feed should have the right posts" do
+    danelli = users(:danelli)
+    brucelee  = users(:brucelee)
+    mushashi    = users(:mushashi)
+    # Posts from followed user
+    mushashi.microposts.each do |post_following|
+      assert danelli.feed.include?(post_following)
+    end
+    # Self-posts for user with followers
+    danelli.microposts.each do |post_self|
+      assert danelli.feed.include?(post_self)
+    end
+    # Self-posts for user with no followers
+    brucelee.microposts.each do |post_self|
+      assert brucelee.feed.include?(post_self)
+    end
+    # Posts from unfollowed user
+    brucelee.microposts.each do |post_unfollowed|
+      assert_not danelli.feed.include?(post_unfollowed)
+    end
+  end
 end
