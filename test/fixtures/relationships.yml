@@ -1,0 +1,15 @@
+one:
+  follower: danelli
+  followed: condolezza
+
+two:
+  follower: danelli
+  followed: lanna
+
+three:
+  follower: condolezza
+  followed: danelli
+
+four:
+  follower: brucelee
+  followed: danelli

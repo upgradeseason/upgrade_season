@@ -37,6 +37,20 @@ mushashi:
   activated: true
   activated_at: <%= Time.zone.now %>
 
+condolezza:
+  name: Condolezza Rice
+  email: condolezza@example.com
+  password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
+lanna:
+  name: Lanna Tomas
+  email: lanna@example.com
+  password_digest: <%= User.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
 #We can use embedded Ruby inside of fixtures
 <% 30.times do |n| %>
 user_<%= n %>:

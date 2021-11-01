@@ -7,7 +7,9 @@ class UsersController < ApplicationController
   #So we pass the appropriate =>  only: [:options1, :options2] hash
   #@user variable is made accessible due to edit and update actions being filtered
   #Require users be logged in to delete etc
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+  #Actions protected by the logged_in_user before filter
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy,
+                                        :following, :followers]
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
 
@@ -79,6 +81,20 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
     redirect_to users_url #the users index
+  end
+
+  def following
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.following.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
   end
 
   private #Private is only used internally, here by the users_controller, and not exposed to external users via web

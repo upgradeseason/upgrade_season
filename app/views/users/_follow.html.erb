@@ -1,10 +1,14 @@
 <%# Need active_relationship object in memory since creating new relationships %>
+<%# Our lil follow form here gives us right kind of form to create new user %>
+<%# Creates new relationshp object (build) %>
 <%# Issues POST request to the relationships controller %>
 <%# Create this thing in memory %>
 <%# Analog to users controller new %>
-<%# Hidden field pulls out user to be followed %>
+<%# Hidden field pulls out user to be followed, creates params w/ followed_id %>
 <%# Pull it out with params of followed_id %>
-<%= form_with(model: current_user.active_relationships.build, local: true) do |f| %>
+<%#= form_with(model: current_user.active_relationships.build, local: true) do |f| %>
+<%# Ajax implementation %>
+<%= form_with(model: current_user.active_relationships.build, remote: true) do |f| %>
   <div><%= hidden_field_tag :followed_id, @user.id %></div>
   <%= f.submit "Follow", class: "btn btn-primary" %>
 <% end %>
