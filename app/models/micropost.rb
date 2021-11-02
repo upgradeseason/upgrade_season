@@ -13,11 +13,19 @@ class Micropost < ApplicationRecord
   #Add some validations to enforce the desired design constraints
   validates :user_id, presence: true #Should be using Active Record associations here
   validates :content, presence: true, length: { maximum: 140 }
-  validates :image,   content_type: ['image/jpeg', 'image/png'],
-                      size:         { less_than: 2.megabytes }
+  validates :image,   content_type: { in: %w[image/jpeg image/gif image/png],
+                                      message: "must be a valid image format" },
+                      size:         { less_than: 5.megabytes,
+                                      message:   "should be less than 5MB" }
+  #validates :image,   content_type: ['image/jpeg', 'image/png'],
+  #                    size:         { less_than: 2.megabytes }
 
   # Returns a resized image for display
+  def display_image
+    image.variant(resize_to_limit: [500, 500])
+  end
+
   #def display_image
-  #  image.variant(resize_to_limit: [500, 500])
-  #end
+  #  image.resize "500x500"
+ # end
 end
