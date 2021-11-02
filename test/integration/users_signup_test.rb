@@ -1,36 +1,33 @@
 require 'test_helper'
 
 class UsersSignupTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
 
   def setup
     ActionMailer::Base.deliveries.clear
   end
 
   test "invalid signup information" do
-    get signup_path #We have a named path, we visit it.
-    #Simulate going to signup page to catch bad mistakes/major regressions, aka verify renders w/o error.
-    #We issue POST request to users_path(the way submit button does) so signup_path isn't necessary.
-    assert_no_difference 'User.count' do #User.count is a string argument to #assert_no_difference method.
-      #We're counting bc we're creating a user.
-      #The count method is avail on every ActiveRecord class.
+    get signup_path # We visit the named path.
+    # Simulate going to signup page to catch bad mistakes, major regressions, aka verify it renders without error.
+    # We issue a POST request to users_path (the same way submit button does) so the signup_path isn't necessary.
+    assert_no_difference 'User.count' do #  User.count is a string argument to #assert_no_difference method.
+      # We're counting bc we're creating a user.
+      # The count method is avail on every ActiveRecord class.
       post users_path, params: { user: { name:  "foobar",
-      #POST request to users_path
-      #params[:user] hash is expected by the User.new create action.
-      #We're simulating form submission here.
+      # POST request to users_path
+      # params[:user] hash is expected by the User.new create action.
+      # We're simulating form submission here.
                                          email: "user@invalid",
                                          password:              "foo",
                                          password_confirmation: "bar" }}
     end
-  assert_template 'users/new' #Test it re-renders new template from users controller.
+  assert_template 'users/new' # Test that it re-renders new template from users controller.
 
-  #Use assert_select to test HTML elements of the unlikely-to-change pages
+  # Use assert_select to test HTML elements of the unlikely-to-change pages
+  # The hash symbol in CSS targets a single specific element with a unique ID, the CSS ID for error_explanation.
   assert_select 'div#error_explanation'
-  #The hash symbol in CSS targets a single specific element with unique ID, the CSS ID for error_explanation.
+  # The CSS dot "." symbol targets multiple elements within a class, after the dot is the class for field with error
   assert_select 'div.field_with_errors'
-  #The CSS dot "." symbol targest multiple elements within a class, after the dot is the class for field with error
   assert_select 'div.alert'
   end
 

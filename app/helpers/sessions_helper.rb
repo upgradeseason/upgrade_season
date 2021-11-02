@@ -29,7 +29,6 @@ module SessionsHelper
     user && user == current_user #Catch edge case where user is nil
   end
 
-
   #Complicated logic, good idea to test drive, TDD
   #Only finds by id, need to modify to find by session if user logged out
   def current_user #Method to return that user (the current logged-in user, if any).

@@ -1,4 +1,4 @@
-#This is where people log in
+# This is where people log in
 
 class SessionsController < ApplicationController
 
@@ -6,8 +6,8 @@ class SessionsController < ApplicationController
     #debugger
   end
 
-  #Handle case where user isn't activated
-  #Intricate logic
+  # Handle case where user isn't activated
+  # Intricate logic
   def create #inside the create action, params hash has the info needed to authenticate users by email & password
     #Create new session by finding user(by something unique), if this is true, we log user in, redirect to show/user profile page
     @user = User.find_by(email: params[:session][:email].downcase)
