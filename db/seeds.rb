@@ -8,14 +8,14 @@
 
 # For users
 # Bang raises exception if it doesn't work, it's a noisy method => avoids silent errors, makes debugging easier
-User.create!(name:  "Example User",
-             email: "example1234@upgradeseason.com",
-             password:              "foobar",
-             password_confirmation: "foobar",
+User.create!(name:  "Bruce Lee",
+             email: "brucelee@upgradeseason.com",
+             password:              "foobar123",
+             password_confirmation: "foobar123",
              admin:                 true,
              activated:             true,
              activated_at: Time.zone.now)
-
+/
 99.times do |n|
   name = Faker::Name.name
   email = "example-#{n+1}@upgradeseason.com"
@@ -46,3 +46,4 @@ following.each { |followed| user.follow(followed) } #Call user.follow for each o
 # User follows users 3..49
 followers.each { |follower| follower.follow(user) } #Each follower should follow the user.
 # Users 4 through 39 follow that user back
+/
