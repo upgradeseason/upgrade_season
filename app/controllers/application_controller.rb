@@ -1,11 +1,11 @@
+# This is the base class of all controllers
 class ApplicationController < ActionController::Base
-  include SessionsHelper
-  #protect_from_forgery prepend: true
-  #protect_from_forgery with: :exception
+  include SessionsHelper #We include this module so it's available in our controllers
+  # protect_from_forgery prepend: true
+  # protect_from_forgery with: :exception
   skip_before_action :verify_authenticity_token
-#This is base class of all the controllers
 
-  #Confirms a logged in user
+  # Confirms a logged in user
   def logged_in_user
     unless logged_in?
       #debugger

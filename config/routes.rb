@@ -1,4 +1,4 @@
-#Define URLs and where they go to
+# Define URLs and where they go to
 
 Rails.application.routes.draw do
   # This mapping establishes that the root URL will be static_pages controller, home action.
@@ -26,15 +26,15 @@ Rails.application.routes.draw do
 
     # If we didn't want the ID in the URL, EG users/tigers vs users/1/following we write
     #collection do
-    #  get :tigers
+    # get :tigers
     #end
   end
-  resources :users #special resources method used to obtain the full suite of RESTful routes automatically
+  resources :users # Special resources method used to obtain the full suite of RESTful routes automatically
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
-  #Add some routes for this, creating and destroying microposts, for micropost resource
+  # Add some routes for this, creating and destroying microposts, for micropost resource
   resources :microposts,          only: [:create, :destroy]
   resources :relationships,       only: [:create, :destroy]
-  #Break in convention: we didn't add :new or :edit (in micropost controller) bc we're manipulating
-  #microposts through the user home and profile page, rather than separate views
+  # Break in convention: we didn't add :new or :edit (in micropost controller) bc we're manipulating
+  # Microposts through the user home and profile page, rather than separate views
 end

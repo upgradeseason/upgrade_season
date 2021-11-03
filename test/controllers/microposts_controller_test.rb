@@ -9,7 +9,7 @@ class MicropostsControllerTest < ActionDispatch::IntegrationTest
   test "should redirect create when not logged in" do
     assert_no_difference 'Micropost.count' do
       post microposts_path, params: { micropost: { content: "Lorem ipsum" }}
-      #Post right parameters so the route resolves
+      # Post right parameters so the route resolves
     end
     assert_redirected_to login_url
   end
@@ -20,8 +20,9 @@ class MicropostsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to login_url
   end
-  #TDD: Now need to define the create and destroy actions in mp controller
-  #Access control test here
+
+  # TDD: Now need to define the create and destroy actions in the micropost controller
+  # Access control test here
   test "should redirect destroy for wrong micropost" do
     log_in_as(users(:danelli))
     micropost = microposts(:plants)
