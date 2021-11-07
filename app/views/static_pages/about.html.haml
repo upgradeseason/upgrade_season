@@ -1,41 +1,40 @@
-<% provide(:title, "About") %>
-<h1>It's Upgrade Season!</h1>
-
-<p><b>Upgrade Season</b> is about upgrading our life while acknowledging that we <b>love</b> ourselves just the way we are. Perhaps we could do better in our personal or professional lives. This could be a hobby, an aspect of our business, or a personal project.</p>
-
-<p>A Power question to ask yourself, when considering what you do with your time</p>
-
-<p><b>How well is that working out for you?</b></p>
-
-<p>Getting the knowledge and applying it is the key to success, with the ultimate goal of having a better life, even if
-it is something as simple as enjoying your relaxation time a bit more.</p>
-
-<p>
-As a starting point, here are 9 parts of life, so you could pick any one or more of these, and rate yourself on a 1 through 10 scale. Then create a plan to improve that aspect, and then act according to the plan you created.
-</p>
-<ul><h3>
-  <li>Health and physical well being</li>
-  <li>Relationships</li>
-  <li>Work</li>
-  <li>Money</li>
-  <li>Learning and Growth</li>
-  <li>Spiritual fulfillment</li>
-  <li>Fun and enjoyment</li>
-  <li>Helping others</li>
-  <li>Love</li>
-</h3>
-<p>
-We invite you to make a short post (we limit our user’s posts to 160 characters) to document and share the progress of your process! After you sign up click the <a href="https://www.upgradeseason.com/users">Users</a> link at the top of the screen to see the other users you can follow.
-</p>
-
-<p>
- <a href="https://www.upgradeseason.com/signup">Sign up</a> and join our community, it's <b>free</b>!
-</p>
-
-<p>
-We can make a better life for ourselves and the special people we keep around us.
-</p>
-
-<p><h3>
-It’s Upgrade Season!
-</h3></p>
+- provide(:title, "About")
+%h1 It's Upgrade Season!
+%p
+  %b Upgrade Season
+  is about upgrading our life while acknowledging that we
+  %b love
+  ourselves just the way we are. Perhaps we could do better in our personal or professional lives. This could be a hobby, an aspect of our business, or a personal project.
+%p A Power question to ask yourself, when considering what you do with your time
+%p
+  %b How well is that working out for you?
+%p
+  Getting the knowledge and applying it is the key to success, with the ultimate goal of having a better life, even if
+  it is something as simple as enjoying your relaxation time a bit more.
+%p
+  As a starting point, here are 9 parts of life, so you could pick any one or more of these, and rate yourself on a 1 through 10 scale. Then create a plan to improve that aspect, and then act according to the plan you created.
+%ul
+  %h3
+  %li Health and physical well being
+  %li Relationships
+  %li Work
+  %li Money
+  %li Learning and Growth
+  %li Spiritual fulfillment
+  %li Fun and enjoyment
+  %li Helping others
+  %li Love
+%p
+  We invite you to make a short post (we limit our user’s posts to 160 characters) to document and share the progress of your process! After you sign up click the
+  %a{:href => "https://www.upgradeseason.com/users"} Users
+  link at the top of the screen to see the other users you can follow.
+%p
+  %a{:href => "https://www.upgradeseason.com/signup"} Sign up
+  and join our community, it's
+  = succeed "!" do
+    %b free
+%p
+  We can make a better life for ourselves and the special people we keep around us.
+%p
+%h3
+  It’s Upgrade Season!
