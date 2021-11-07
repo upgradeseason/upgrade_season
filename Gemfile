@@ -6,6 +6,7 @@ ruby "3.0.0"
 gem 'rails',                      '6.1.4.1'
 gem 'image_processing',           '1.12.1'
 gem 'mini_magick',                '4.11.0'
+gem 'haml-rails'
 gem 'active_storage_validations', '0.9.5'
 gem 'bcrypt',                     '3.1.13'
 gem 'faker',                      '2.11.0'
